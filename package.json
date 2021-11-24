@@ -1,0 +1,20 @@
+{
+  "name": "simple-crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlekseyLevko/simple-crud-api.git"
+  },
+  "keywords": [],
+  "author": "Alex (@AlekseyLevko)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlekseyLevko/simple-crud-api/issues"
+  },
+  "homepage": "https://github.com/AlekseyLevko/simple-crud-api#readme"
+}
