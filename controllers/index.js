@@ -1,8 +1,5 @@
-const { persons } = require("../db");
-const { v4: uuidv4 } = require("uuid");
-const { getParamsPath } = require("../utils");
-const { getAllPersons, getPersonById } = require("../models");
-const { validateId } = require("../utils");
+const { getAllPersons, getPersonById, createNewPerson, updatePerson } = require("../models");
+const { validateId, validatePerson, getParamsPath, handleError } = require("../utils");
 
 const handleGetPersons = (req, res) => {
   try {
@@ -10,12 +7,7 @@ const handleGetPersons = (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(persons));
   } catch (err) {
-    res.writeHead(500, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        error: "Internal server error"
-      })
-    );
+    handleError(err, res);
   }
 };
 
@@ -29,8 +21,7 @@ const handleGetPerson = (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(person));
   } catch (err) {
-    res.writeHead(err.statusCode || 500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: err.message || "Internal server error" }));
+    handleError(err, res);
   }
 };
 
@@ -39,19 +30,44 @@ const handleCreatePerson = (req, res) => {
     let data = "";
     req.on("data", (chunk) => (data += chunk));
     req.on("end", () => {
-      const { name, age, hobbies } = JSON.parse(data);
-      const person = { id: uuidv4(), name: name || null, age: age || null, hobbies: hobbies || [] };
-      persons.push(person);
-      res.writeHead(201, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(person));
+      try {
+        const person = JSON.parse(data);
+        validatePerson(person);
+        const newPerson = createNewPerson(person);
+        res.writeHead(201, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(newPerson));
+      } catch (err) {
+        handleError(err, res);
+      }
     });
   } catch (err) {
-    res.writeHead(err.statusCode || 500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(err.message));
+    handleError(err, res);
   }
 };
 
-const handleUpdatePerson = (req, res) => {};
+const handleUpdatePerson = (req, res) => {
+  try {
+    const path = req.url;
+    const paramsPath = getParamsPath(path);
+    const id = paramsPath[1];
+    validateId(id);
+    let data = "";
+    req.on("data", (chunk) => (data += chunk));
+    req.on("end", () => {
+      try {
+        const person = JSON.parse(data);
+        validatePerson(person);
+        const updatedPerson = updatePerson(id, person);
+        res.writeHead(201, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(updatedPerson));
+      } catch (err) {
+        handleError(err, res);
+      }
+    });
+  } catch (err) {
+    handleError(err, res);
+  }
+};
 
 module.exports = {
   handleGetPerson,

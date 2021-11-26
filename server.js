@@ -10,18 +10,21 @@ const server = http.createServer((req, res) => {
   const paramsPath = getParamsPath(path);
   const method = req.method;
 
-  if (paramsPath[0] === "person" && paramsPath.length === 1 && method === "GET") {
+  if (method === "GET" && paramsPath.length === 1 && paramsPath[0] === "person") {
     handleGetPersons(req, res);
-  } else if (paramsPath[0] === "person" && paramsPath.length === 2 && method === "GET") {
+  } else if (method === "GET" && paramsPath.length === 2 && paramsPath[0] === "person") {
     handleGetPerson(req, res);
-  } else if (paramsPath[0] === "person" && paramsPath.length === 1 && method === "POST") {
+  } else if (method === "POST" && paramsPath.length === 1 && paramsPath[0] === "person") {
     handleCreatePerson(req, res);
-  } else if (paramsPath[0] === "person" && paramsPath.length === 2 && method === "PUT") {
+  } else if (method === "PUT" && paramsPath.length === 2 && paramsPath[0] === "person") {
     handleUpdatePerson(req, res);
   } else {
-    res.statusCode = 404;
-    res.write("Такой страницы не существует");
-    res.end();
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        error: "Non-existing resource. Check request-method and endpoint"
+      })
+    );
   }
 });
 
