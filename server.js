@@ -1,7 +1,13 @@
 const http = require("http");
 require("dotenv").config();
 const { getParamsPath } = require("./utils");
-const { handleCreatePerson, handleGetPerson, handleGetPersons, handleUpdatePerson } = require("./controllers");
+const {
+  handleCreatePerson,
+  handleGetPerson,
+  handleGetPersons,
+  handleUpdatePerson,
+  handleDeletePerson
+} = require("./controllers");
 
 const port = process.env.PORT || 3000;
 
@@ -18,6 +24,8 @@ const server = http.createServer((req, res) => {
     handleCreatePerson(req, res);
   } else if (method === "PUT" && paramsPath.length === 2 && paramsPath[0] === "person") {
     handleUpdatePerson(req, res);
+  } else if (method === "DELETE" && paramsPath.length === 2 && paramsPath[0] === "person") {
+    handleDeletePerson(req, res);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(

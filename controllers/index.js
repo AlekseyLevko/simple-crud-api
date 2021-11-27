@@ -1,4 +1,4 @@
-const { getAllPersons, getPersonById, createNewPerson, updatePerson } = require("../models");
+const { getAllPersons, getPersonById, createNewPerson, updatePerson, deletePerson } = require("../models");
 const { validateId, validatePerson, getParamsPath, handleError } = require("../utils");
 
 const handleGetPersons = (req, res) => {
@@ -69,9 +69,24 @@ const handleUpdatePerson = (req, res) => {
   }
 };
 
+const handleDeletePerson = (req, res) => {
+  try {
+    const path = req.url;
+    const paramsPath = getParamsPath(path);
+    const id = paramsPath[1];
+    validateId(id);
+    deletePerson(id);
+    res.writeHead(204, { "Content-Type": "application/json" });
+    res.end();
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
 module.exports = {
   handleGetPerson,
   handleGetPersons,
   handleCreatePerson,
-  handleUpdatePerson
+  handleUpdatePerson,
+  handleDeletePerson
 };

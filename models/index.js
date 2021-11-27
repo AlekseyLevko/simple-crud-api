@@ -25,9 +25,16 @@ const updatePerson = (id, { name, age, hobbies }) => {
   return persons[index];
 };
 
+const deletePerson = (id) => {
+  const index = persons.findIndex((person) => person.id === id);
+  if (index === -1) throw new DBError(`Person with id '${id}' not found`);
+  persons.splice(index, 1);
+};
+
 module.exports = {
   getAllPersons,
   getPersonById,
   createNewPerson,
-  updatePerson
+  updatePerson,
+  deletePerson
 };
