@@ -18,4 +18,4 @@
 3. To run the tests from the command line use next commands:
 
 - `"npm run start:test"` to start separate server for testing on 4000 port;
-- `"npm run test"` to run tests (when the server is running on port 4000).
+- `"npm run test"` in another terminal to run tests (when the server is running on port 4000).
