@@ -17,5 +17,5 @@
 2. To run the server in production mode from the command line use `"npm run start:prod"` command.
 3. To run the tests from the command line use next commands:
 
-- `"npm run start:test"` to start server in test mode (this script starts the server on port 4000);
-- `"npm run test"` to run tests.
+- `"npm run start:test"` to start separate server for testing on 4000 port;
+- `"npm run test"` to run tests (when the server is running on port 4000).
