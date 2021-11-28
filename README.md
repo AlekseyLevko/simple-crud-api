@@ -19,3 +19,17 @@
 
 - `"npm run start:test"` to start separate server for testing on 4000 port;
 - `"npm run test"` in another terminal to run tests (when the server is running on port 4000).
+
+### API path `/person`:
+
+    * **GET** `/person` or `/person/${personId}` returns all persons or person with corresponding `personId`
+    * **POST** `/person` is used to create record about new person and store it in database (you must pass all the required fields described below to successfully complete the request)
+    * **PUT** `/person/${personId}` is used to update record about existing person (you must pass all the required fields described below to successfully complete the request)
+    * **DELETE** `/person/${personId}` is used to delete record about existing person from database
+
+### Persons are stored as `objects` that have following properties:
+
+    * `id` — unique identifier (`string`, `uuid`) generated on server side
+    * `name` — person's name (`string`, **required**)
+    * `age` — person's age (`number`, **required**)
+    * `hobbies` — person's hobbies (`array` of `strings` or empty `array`, **required**)
