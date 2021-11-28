@@ -58,7 +58,7 @@ const handleUpdatePerson = (req, res) => {
         const person = JSON.parse(data);
         validatePerson(person);
         const updatedPerson = updatePerson(id, person);
-        res.writeHead(201, { "Content-Type": "application/json" });
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(updatedPerson));
       } catch (err) {
         handleError(err, res);

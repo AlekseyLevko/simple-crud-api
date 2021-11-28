@@ -1,5 +1,4 @@
 const getPersonId = (path) => {
-  console.log(path);
   return path;
 };
 
