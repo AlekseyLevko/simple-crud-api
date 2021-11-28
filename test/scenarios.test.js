@@ -1,7 +1,7 @@
 const http = require("http");
 require("dotenv").config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.TEST_PORT || 4000;
 
 const person = {
   name: "Alex",
@@ -133,7 +133,6 @@ test("Try to get deleted person. Should get error message", (done) => {
 
     res.on("end", () => {
       const parsedData = JSON.parse(rawData);
-      console.log(parsedData);
       expect(parsedData).toEqual({
         error: `Person with id '${personId}' not found`
       });

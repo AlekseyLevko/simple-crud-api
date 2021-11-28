@@ -6,6 +6,7 @@
   "scripts": {
     "start:dev": "nodemon server.js",
     "start:prod": "node server.js",
+    "start:test": "PORT=4000 node server.js",
     "test": "jest --runInBand"
   },
   "repository": {
