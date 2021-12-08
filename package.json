@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon server.js",
+    "start:prod": "webpack --mode production && node dist/bundle.js",
+    "start:test": "PORT=4000 node server.js",
+    "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/AlekseyLevko/simple-crud-api/issues"
   },
-  "homepage": "https://github.com/AlekseyLevko/simple-crud-api#readme"
+  "homepage": "https://github.com/AlekseyLevko/simple-crud-api#readme",
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15",
+    "prettier": "2.4.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "uuid": "^8.3.2"
+  }
 }
